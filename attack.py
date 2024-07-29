@@ -300,7 +300,7 @@ def generate_and_save_steering_vectors(
 
         p = F.softmax(positive, dim=-1)
         n = F.softmax(negative, dim=-1)
-        M = 0.5 * (F.softmax(positive, dim=-1) + F.softmax(positive, dim=-1))
+        M = 0.5 * (F.softmax(positive, dim=-1) + F.softmax(negative, dim=-1))
         kl1 = F.kl_div(p, M, reduction="none").mean(-1)
         kl2 = F.kl_div(n, M, reduction="none").mean(-1)
         js_divs = 0.5 * (kl1 + kl2).mean(-1)
